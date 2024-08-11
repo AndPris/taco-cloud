@@ -16,20 +16,20 @@ public class Order {
     private Long id;
     private Date placedAt;
 
-    @NotBlank(message = "Name is required")
-    private String name;
+    @NotBlank(message = "Delivery name is required")
+    private String deliveryName;
 
-    @NotBlank(message = "Street is required")
-    private String street;
+    @NotBlank(message = "Delivery street is required")
+    private String deliveryStreet;
 
-    @NotBlank(message = "City is required")
-    private String city;
+    @NotBlank(message = "Delivery city is required")
+    private String deliveryCity;
 
-    @NotBlank(message = "State is required")
-    private String state;
+    @NotBlank(message = "Delivery state is required")
+    private String deliveryState;
 
-    @NotBlank(message = "Zip code is required")
-    private String zip;
+    @NotBlank(message = "Delivery zip code is required")
+    private String deliveryZip;
 
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;
