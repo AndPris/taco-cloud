@@ -1,5 +1,6 @@
 package sia.tacocloud;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.validation.constraints.Size;
@@ -9,7 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Entity
 public class Taco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date createdAt;
 
@@ -18,6 +22,11 @@ public class Taco {
     private String name;
 
     @NotNull(message="You must choose at least 1 ingredient")
-//    @Size(min=1, message="You must choose at least 1 ingredient")
+    @ManyToMany(targetEntity = Ingredient.class)
     private List<Ingredient> ingredients;
+
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
+    }
 }
