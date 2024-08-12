@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.validation.constraints.Size;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +14,7 @@ public class Taco {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private Date createdAt;
 
     @NotNull
@@ -26,7 +26,8 @@ public class Taco {
     private List<Ingredient> ingredients;
 
     @PrePersist
-    void createdAt() {
+    @PreUpdate
+    void setCreatedAt() {
         this.createdAt = new Date();
     }
 }
