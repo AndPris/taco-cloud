@@ -1,5 +1,6 @@
 package sia.tacocloud;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,7 +13,13 @@ import java.util.List;
 import java.util.Date;
 
 @Data
+@Entity
+@Table(name = "Taco_Order")
 public class Order {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date placedAt;
 
@@ -42,9 +49,15 @@ public class Order {
     private String ccCVV;
 
     @NotNull(message="Your order must contain at least 1 taco")
+    @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addDesign(Taco design) {
         this.tacos.add(design);
+    }
+
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
     }
 }
